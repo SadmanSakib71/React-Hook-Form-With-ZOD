@@ -22,8 +22,11 @@ function App() {
         <label>Email</label>
         <input
           {...register("email", {
-            required: "Email is required",
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            required: "Email is Required",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Email is not valid",
+            },
           })}
           type="text"
           placeholder="Email"
@@ -33,10 +36,19 @@ function App() {
         )}
         <label>Password</label>
         <input
-          {...register("password", { required: true, minLength: 6 })}
+          {...register("password", {
+            required: "Password is Required",
+            minLength: {
+              value: 8,
+              message: "password must have at least 8 characters",
+            },
+          })}
           type="password"
           placeholder="password"
         />
+        {errors.password && (
+          <div className="text-red-500">{errors.password.message}</div>
+        )}
         <input type="submit" />
       </form>
     </>
