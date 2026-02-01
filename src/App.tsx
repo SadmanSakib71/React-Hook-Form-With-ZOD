@@ -1,9 +1,14 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import z from "zod";
 import "./App.css";
-type FormFields = {
-  email: string;
-  password: string;
-};
+
+const schema = z.object({
+  email: z.email(),
+  password: z.string().min(8),
+});
+
+type FormFields = z.infer<typeof schema>;
 
 function App() {
   const {
@@ -15,6 +20,7 @@ function App() {
     defaultValues: {
       email: "Sakib@gmail.com",
     },
+    resolver: zodResolver(schema),
   });
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
@@ -33,29 +39,13 @@ function App() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Email</label>
-        <input
-          {...register("email", {
-            required: "Email is Required",
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: "Email is not valid",
-            },
-          })}
-          type="text"
-          placeholder="Email"
-        />
+        <input {...register("email")} type="text" placeholder="Email" />
         {errors.email && (
           <div className="text-red-500">{errors.email.message}</div>
         )}
         <label>Password</label>
         <input
-          {...register("password", {
-            required: "Password is Required",
-            minLength: {
-              value: 8,
-              message: "password must have at least 8 characters",
-            },
-          })}
+          {...register("password")}
           type="password"
           placeholder="password"
         />
