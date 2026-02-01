@@ -11,7 +11,11 @@ function App() {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<FormFields>();
+  } = useForm<FormFields>({
+    defaultValues: {
+      email: "Sakib@gmail.com",
+    },
+  });
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
