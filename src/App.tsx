@@ -22,13 +22,15 @@ function App() {
         <label>Email</label>
         <input
           {...register("email", {
-            required: true,
+            required: "Email is required",
             pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           })}
           type="text"
           placeholder="Email"
         />
-        {errors.email && <div className="text-red-500">My Name is khan</div>}
+        {errors.email && (
+          <div className="text-red-500">{errors.email.message}</div>
+        )}
         <label>Password</label>
         <input
           {...register("password", { required: true, minLength: 6 })}
