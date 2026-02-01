@@ -28,7 +28,7 @@ function App() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       throw new Error();
       console.log(data);
-    } catch (error) {
+    } catch {
       setError("root", {
         message: "The Email Is Already Taken",
       });
