@@ -30,7 +30,7 @@ function App() {
       console.log(data);
     } catch {
       setError("root", {
-        message: "The Email Is Already Taken",
+        message: "The Email Is Already Taken Bro",
       });
     }
   };
